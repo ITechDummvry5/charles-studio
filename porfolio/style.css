@@ -1,0 +1,1145 @@
+/* ==================================================
+   CSS VARIABLES
+================================================== */
+:root {
+  /* Colors */
+  --color-bg-main: #ffffff;
+  --color-bg-secondary: #ff6b00;
+  --color-bg-secondary-active: #ff4500;
+  --color-text-main: #111111;
+  --color-text-muted: #333333;
+  --color-navbar-bg: #fdfefe;
+  --color-text-active: #fff;
+
+  /* Font Sizes */
+  --fs-body: 1rem;
+  --fs-nav: 0.95rem;
+  --fs-logo: 1.7rem;
+  --fs-title: 4.8rem;
+  --fs-subtitle: 1.3rem;
+  --fs-section: 2.7rem;
+  --fs-name: 1.9rem;
+
+  /* Font Weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+  /* Layout */
+  --navbar-height: 65px;
+  --container-padding: 10%;
+}
+
+/* loader */
+/* Loader Styles */
+.loader {
+    border: 8px solid var(--color-bg-secondary-active);
+    border-top: 15px solid var(--color-bg-secondary);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hide content initially */
+.hidden {
+    display: none;
+}
+
+
+/* ==================================================
+   FONT FACE
+================================================== */
+@font-face {
+  font-family: 'QurovaDEMO';
+  src: url('resources/font/QurovaDEMO-Bold-BF67a5c637eed62.otf')
+    format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+/* ==================================================
+   GLOBAL RESET
+================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  font-size: var(--fs-body);
+  color: var(--color-text-main);
+  background: var(--color-bg-main);
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+}
+
+
+/* ==================================================
+   BURGER MENU
+================================================== */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.burger span {
+  width: 100%;
+  height: 4px;
+  background: var(--color-text-muted);
+  border-radius: 5px;
+}
+
+
+/* ==================================================
+   NAVIGATION BAR
+================================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  width: 100%;
+  height: var(--navbar-height);
+  padding: 0 var(--container-padding);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--color-navbar-bg);
+  backdrop-filter: blur(10px);
+}
+
+/* ==================================================
+   LOGO
+================================================== */
+.logo {
+  font-size: var(--fs-logo);
+  font-weight: var(--fw-bold);
+  font-family: 'QurovaDEMO', sans-serif;
+  text-transform: capitalize;
+}
+
+
+/* ==================================================
+   NAV LINKS
+================================================== */
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a {
+  font-size: var(--fs-nav);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-muted);
+  text-transform: capitalize;
+}
+/* ==================================================
+   DARK MODE TOGGLE
+================================================== */
+.theme-toggle button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  background: none;
+  border: none;
+}
+
+.theme-toggle img {
+  width: 20px;
+  height: 20px;
+
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.theme-toggle button:hover img {
+  transform: rotate(20deg) scale(1.1);
+  opacity: 0.8;
+}
+
+
+/* ==================================================
+   HERO BUTTONS
+================================================== */
+
+/* Hero Buttons Container */
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* Base style for all hero buttons (hidden by default, show in dark mode) */
+.hero-buttons a {
+  display: none;
+  padding: 10px 20px;        
+  align-items: center;
+  gap: 10px;
+
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+  border-radius: 5px;        
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Resume Button */
+.btn-resume {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-bg-main);
+  border: none;
+}
+
+/* GitHub Button */
+.btn-github {
+  border: 2.5px solid var(--color-bg-secondary);
+  background-color: transparent;               
+  color: var(--color-bg-secondary);
+}
+
+/* GitHub icon background */
+.btn-github .btn-icon {
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-bg-secondary-active); /* 25% white */
+  border-radius: 4px;                           
+  padding: 2px;                                 
+}
+
+/* Show buttons only in dark mode */
+body.dark .btn-resume,
+body.dark .btn-github {
+  display: inline-flex !important;
+}
+
+/* Hover effects for both buttons */
+.btn-resume:hover,
+.btn-github:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+  background-color: var(--color-bg-secondary-active);
+  color: var(--color-text-active);
+  border: none;
+}
+
+/* GitHub icon hover background */
+.btn-github:hover .btn-icon {
+  background-color: #fff;
+}
+
+/* ==================================================
+   BUTTON ICON
+================================================== */
+.btn-icon {
+  width: 24px;
+  height: 24px;
+
+  transform: scale(1);
+  transition: transform 0.6s ease-in-out;
+}
+
+.btn-resume:hover .btn-icon {
+  transform: scale(1.05) rotate(360deg);
+}
+
+
+/* ==================================================
+   TYPING ANIMATION
+================================================== */
+#typing-text::after {
+  content: "|";
+  margin-left: 5px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+
+/* ==================================================
+   HERO SECTION WAVES
+================================================== */
+#hero {
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--navbar-height);
+}
+
+#hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical center */
+  align-items: center;     /* horizontal center */
+  text-align: center;
+}
+
+
+.hero-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  line-height: 0;
+
+  pointer-events: none;
+}
+
+.hero-wave svg {
+  display: block;
+  width: 100%;
+  height: 120px;
+}
+
+
+/* Base wave */
+.base-wave {
+  z-index: 1;
+  animation: waveFloatBase 8s ease-in-out infinite;
+}
+
+/* Overlay wave */
+.overlay-wave {
+  z-index: 2;
+  opacity: 0.8;
+  animation: waveFloatOverlay 5s ease-in-out infinite;
+}
+
+
+/* ==================================================
+   WAVE ANIMATIONS
+================================================== */
+@keyframes waveFloatBase {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes waveFloatOverlay {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(14px);
+  }
+}
+/* ==================================================
+   SECTIONS
+================================================== */
+.section {
+  min-height: calc(100vh - var(--navbar-height)); /* full height if content is smaller, expands if content is taller */
+  width: 100%;
+  padding: 0 var(--container-padding);
+
+  display: flex;
+  flex-direction: column;  /* allows stacking content vertically */
+  align-items: center;
+  justify-content: flex-start; /* start from top */
+  scroll-snap-align: start;
+}
+
+.white {
+  background: var(--color-bg-main);
+  text-align: center;
+}
+
+.title {
+  font-size: var(--fs-title);
+  font-weight: var(--fw-bold);
+}
+
+.subtitle {
+  margin-top: 10px;
+  font-size: var(--fs-subtitle);
+  opacity: 0.7;
+  line-height: 2;
+  letter-spacing: 0.15em;
+}
+
+h1 span {
+  color: var(--color-bg-secondary);
+  font-family: 'QurovaDEMO', sans-serif;
+}
+
+
+/* ==================================================
+   EDUCATION TABS
+================================================== */
+.edu-tabs {
+  display: flex; /* flex layout for fixed-width tabs */
+  justify-content: space-between;
+  margin-bottom: 40px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.edu-tab {
+  flex: 1; /* each tab gets equal width */
+  text-align: center;
+  background: none;
+  border: none;
+  padding: 14px 0;
+  cursor: pointer;
+
+  font-size: 1rem;
+  font-weight: var(--fw-medium);
+  color: var(--color-text-muted);
+  position: relative;
+}
+
+.edu-tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+
+  width: 100%;
+  height: 2px;
+  background: var(--color-bg-secondary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.edu-tab.active {
+  color: var(--color-text-main);
+  font-weight: var(--fw-bold);
+}
+
+.edu-tab.active::after {
+  transform: scaleX(1);
+}
+
+
+/* ==================================================
+   EDUCATION CONTENT CONTAINER
+================================================== */
+.edu-content {
+  min-height: 200px; /* fixed height for all panels */
+  position: relative;
+  overflow: hidden;  /* hide non-active panels */
+}
+
+
+/* ==================================================
+   EDUCATION CONTAINER
+================================================== */
+.education-container {
+  max-width: 900px; /* maximum width on large screens */
+  width: 100%;      /* full width on smaller screens */
+  margin: 0 auto;   /* center the container */
+  padding: 0 20px;  /* optional side padding */
+}
+#education{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==================================================
+   EDUCATION PANELS
+================================================== */
+.edu-panel {
+  position: absolute;  /* stack panels on top of each other */
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none; /* inactive panels not clickable */
+}
+
+.edu-panel.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* active panel clickable */
+}
+
+.edu-panel h3 {
+  font-size: 1.3rem;
+  font-weight: var(--fw-bold);
+}
+
+.edu-panel .school {
+  display: block;
+  margin-top: 5px;
+  color: var(--color-bg-secondary);
+  font-weight: var(--fw-medium);
+}
+
+.edu-panel .year {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.edu-panel p {
+  margin-top: 15px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+
+/* ==================================================
+   TAB ANIMATION
+================================================== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ==================================================
+   EDUCATION LOGO CONTAINER
+================================================== */
+.education-logos {
+  width: 100%;
+  padding: 30px 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Slider wrapper */
+.logos-slider {
+  display: flex;
+  gap: 40px; /* spacing between logos */
+  animation: slide-left 15s linear infinite;
+}
+
+/* Individual logos */
+.logos-slider img {
+  max-height: 90px; /* control size */
+  transition: transform 0.3s;
+}
+
+.logos-slider img:hover {
+  transform: scale(1.1);
+}
+
+/* Simple horizontal scroll animation */
+@keyframes slide-left {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-20%); }
+  100% { transform: translateX(0); }
+}
+
+
+/* ==================================================
+   OPTIONAL: FADE-IN ANIMATION
+================================================== */
+.animate-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ==================================================
+   CONTACT
+================================================== */
+.contact {
+  width: 100%;
+  height: calc(100vh - var(--navbar-height));
+
+  background-image: url('images/bg/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 80px 20px;
+}
+
+/* WRAPPER */
+.contact-wrapper {
+  position: relative;
+  width: 800px;
+  max-width: 100%;
+}
+
+/* BIG FORM CARD */
+.contact-form {
+  background: var(--color-bg-main);
+  color: var(--color-text-main);
+
+  border-radius: 20px;
+  padding: 40px 40px 40px 220px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.18);
+}
+
+.contact-form h2 {
+  margin-bottom: 24px;
+ font-family: 'QurovaDEMO';
+ font-size: 2.4rem;
+}
+
+
+.contact-form label {
+  display: block;
+  margin-top: 18px;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+
+  background: rgba(0,00,0,0.05);
+  color: var(--color-text-main);
+}
+
+body.dark .contact-form input,
+body.dark .contact-form textarea {
+  background: rgba(255,255,255,0.05);
+}
+
+/* BUTTON */
+.contact-form button {
+  margin-top: 28px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  align-items: center;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-bg-main);
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* INFO OVERLAY CARD */
+.contact-info {
+  position: absolute;
+  top: 40px;
+  left: -40px;
+  width: 220px;
+
+  background: linear-gradient(135deg, #ff6d4d, #d12600);
+  color: var(--color-text-main);
+
+  border-radius: 18px;
+  padding: 26px 22px;
+
+  z-index: 3;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+}
+
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-block: 28px;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-item img {
+  width: 22px;
+  height: 22px;
+  filter: invert(0);
+}
+
+/* DARK MODE ICON ADJUST */
+body.dark .info-item img {
+  filter: invert(1);
+}
+
+.info-item h4 {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.info-item p {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* LOGO OVERLAY */
+.logo-box {
+  position: absolute;
+  top: 40px;
+  right: -30px;
+
+  width: 120px;
+  height: 120px;
+
+  background: var(--color-bg-secondary);
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 4;
+  box-shadow: 0 0px 10px #ff4500;
+}
+
+.logo-box img {
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+}
+
+/* ==================================================
+   ANIMATIONS
+================================================== */
+.animate-up,
+.animate-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+
+.animate-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==================================================
+   FOOTER
+================================================== */
+.footer {
+  background: var(--color-bg-main);
+  color: var(--color-text-main);
+  padding: 60px 10%;
+  border-top: 2px solid var(--color-bg-secondary);
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+/* ===========================
+   Logo & Overlapping Logos
+=========================== */
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.logo-group img {
+  width: 80px; /* all logos same size */
+  height: auto;
+  object-fit: contain;
+  margin-left: -15px; /* overlap */
+  border: 2px solid transparent; /* no white border */
+  border-radius: 8px;
+  transition: transform 0.3s ease, z-index 0.3s;
+  z-index: 1;
+}
+
+.logo-group img:first-child {
+  margin-left: 0;  /* keep first logo aligned */
+  width: 80px;     /* same as others */
+  z-index: 2;      /* optional */
+}
+
+
+.logo-group img:hover {
+  transform: scale(1.2);
+  z-index: 3; /* bring hovered logo forward */
+}
+
+.footer-logo p {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* ===========================
+   Quick Links
+=========================== */
+.footer-links h4,
+.footer-subscribe h4 {
+  font-size: 1.2rem;
+  font-weight: var(--fw-bold);
+  margin-bottom: 15px;
+}
+
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links ul li a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: var(--color-bg-secondary);
+}
+
+/* ===========================
+   Subscribe Form
+=========================== */
+.footer-subscribe p {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: 10px;
+}
+
+.subscribe-form input {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.2);
+  font-size: 0.9rem;
+}
+
+.subscribe-form button {
+  padding: 10px 20px;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-bg-main);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: var(--fw-bold);
+  transition: background 0.3s;
+}
+
+.subscribe-form button:hover {
+  background-color: var(--color-bg-secondary-active);
+}
+
+/* ===========================
+   Footer Bottom Text
+=========================== */
+.footer-bottom {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.6;
+} 
+/* ===========================
+   Responsive
+=========================== */
+@media (max-width: 850px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-links,
+  .footer-subscribe {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .logo-group img {
+    margin-left: -10px; /* smaller overlap on mobile */
+    width: 40px;
+  }
+
+  .logo-group img:first-child {
+    width: 60px;
+  }
+
+  .subscribe-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .subscribe-form button {
+    width: 100%;
+  }
+}
+
+
+/* ==================================================
+   DARK MODE
+================================================== */
+body.dark {
+  --color-bg-main: #151b23;
+  --color-text-main: #f8fafc;
+  --color-text-muted: #cbd5f5;
+  --color-navbar-bg: #0d1117;
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+/* Navigation adjustments for mobile */
+@media (max-width: 850px) {
+  .nav-links {
+    position: absolute;
+    top: calc(var(--navbar-height) + 10px);
+    right: 0;
+
+    width: 200px;
+    padding: 20px 0;
+
+    flex-direction: column;
+    background: var(--color-bg-main);
+
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links.show {
+    transform: translateX(0);
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  /* Section title spacing on mobile */
+  .section-title {
+    margin-bottom: 20px; /* reduced spacing */
+  }
+}
+
+/* Section title default style (desktop) */
+.section-title {
+  margin-bottom: 40px; /* default desktop spacing */
+  font-size: var(--fs-section);
+  font-weight: var(--fw-bold);
+  font-family: 'QurovaDEMO', sans-serif;
+}
+
+.modal {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1000;
+}
+
+.modal.show {
+  opacity:1;
+  pointer-events:auto;
+}
+.modal-skill{
+  font-family: 'QurovaDEMO';
+}
+
+/* Modal content */
+.modal-content {
+  background: var(--color-bg-main);
+  border-radius:15px;
+  max-width: 800px;
+  width: 90%;
+  display: flex;
+  padding: 30px;
+  gap: 40px;
+  transform: translateY(-50px);
+  opacity:0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+  opacity:1;
+}
+
+.modal-left {
+  display: flex;
+  flex-direction: column; /* stack photo + name vertically */
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* spacing between photo and name */
+}
+
+.modal-name {
+  font-size: var(--fs-name);   /* adjust size */
+  font-weight: var(--fw-bold);
+  text-align: center;
+  color: var(--color-bg-secondary);         /* or your preferred color */
+ font-family: 'QurovaDEMO';
+  margin: 0;
+}
+
+.border-photo{
+  border: 5px solid var(--color-bg-secondary-active);
+}
+
+.photo-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-wrapper img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 10;
+  background-color: var(--color-bg-main);
+}
+
+/* Firework particles */
+.firework {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: red;
+  top: 50%;
+  left: 50%;
+  opacity: 0.8;
+  z-index: 15; /* higher than the photo */
+  animation: firework 1s ease-out infinite;
+}
+
+.particle1 { --x: -120px; --y: -120px; background: #ff6b00; animation-delay: 0s; }
+.particle2 { --x: 130px; --y: -100px; background: #ff4500; animation-delay: 0.2s; }
+.particle3 { --x: -110px; --y: 130px; background: #ffcc00; animation-delay: 0.4s; }
+.particle4 { --x: 120px; --y: 140px; background: #00ccff; animation-delay: 0.6s; }
+.particle5 { --x: -140px; --y: 50px; background: #00ff99; animation-delay: 0.8s; }
+.particle6 { --x: 80px; --y: -140px; background: #ff33cc; animation-delay: 1s; }
+
+
+
+/* Firework animation */
+@keyframes firework {
+  0% {
+    transform: translate(0,0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(calc(var(--x, 0px)), calc(var(--y, 0px))) scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(calc(var(--x, 0px)), calc(var(--y, 0px))) scale(0.5);
+    opacity: 0;
+  }
+}
+/* Right skills */
+.modal-right {
+  flex:1;
+}
+
+.modal-right h2 {
+  margin-bottom: 15px;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.skill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+}
+
+.skill img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.skill span {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+

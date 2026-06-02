@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+
+  <link rel="shortcut icon" href="images/icon/moon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div id="loader" class="loader"></div>
+
+  <div id="content" class="hidden">
+
+    <!-- ==============================
+         NAVIGATION
+    =============================== -->
+    <nav class="navbar">
+      <div class="logo">myPortfolio</div>
+
+      <ul class="nav-links">
+        <li><a href="#about" id="aboutBtn">Skill</a></li>
+        <li><a href="#education">education</a></li>
+        <li><a href="#contact">contact</a></li>
+        <li><a href="project.html" class="btn-link">Projects</a></li>
+        <li class="theme-toggle">
+          <button id="darkModeToggle" aria-label="Toggle dark mode">
+            <img
+              id="themeIcon"
+              src="images/icon/sun.png"
+              alt="Theme icon"
+            />
+          </button>
+        </li>
+      </ul>
+
+      <div class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <div id="aboutModal" class="modal">
+      <div class="modal-content">
+
+        <div class="modal-left">
+          <div class="photo-wrapper">
+            <img src="images/skills/photo.jpg" class="border-photo" alt="My Photo">
+
+            <div class="firework particle1"></div>
+            <div class="firework particle2"></div>
+            <div class="firework particle3"></div>
+            <div class="firework particle4"></div>
+            <div class="firework particle5"></div>
+            <div class="firework particle6"></div>
+          </div>
+
+          <h2 class="modal-name">Ignacio, Charles Andrei</h2>
+        </div>
+
+        <div class="modal-right">
+          <h2 class="modal-skill">My Skills</h2>
+
+          <div class="skills">
+
+            <div class="skill">
+              <img src="images/skills/laravel.png" alt="Laravel">
+              <span>Laravel</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/php.png" alt="PHP">
+              <span>PHP</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/livewire.png" alt="Livewire">
+              <span>Livewire</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/html.png" alt="HTML">
+              <span>HTML</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/css.png" alt="CSS">
+              <span>CSS</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/js.png" alt="JS">
+              <span>JS</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/sql.png" alt="SQL">
+              <span>SQL</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/figma.png" alt="Figma">
+              <span>Figma</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/excel.png" alt="Excel">
+              <span>Excel</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/ppt.png" alt="PowerPoint">
+              <span>PowerPoint</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/word.png" alt="Word">
+              <span>Word</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/vba.png" alt="VBA">
+              <span>VBA</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/github.png" alt="Github">
+              <span>Github</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/git.png" alt="Git">
+              <span>Git</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/canva.png" alt="Canva">
+              <span>Canva</span>
+            </div>
+
+            <div class="skill">
+              <img src="images/skills/Inkscape.png" alt="Inkscape">
+              <span>Inkscape</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==============================
+         HERO SECTION
+    =============================== -->
+    <section class="section white" id="hero">
+       <div class="center">
+    <h1 class="title animate-up">
+      Hi, I'm <span>Charles</span>
+    </h1>
+
+    <p class="subtitle animate-up" id="typing-text"></p>
+
+    <div class="hero-buttons">
+      <a href="resources/resume.pdf" download class="btn-resume" id="resumeBtn">
+        <img src="images/icon/pdf.png" alt="Download Icon" class="btn-icon" />
+        Download Resume
+      </a>
+
+      <a href="https://github.com/ITechDummvry5" target="_blank" class="btn-github">
+        <img src="images/skills/github.png" alt="GitHub Icon" class="btn-icon" />
+        View GitHub
+      </a>
+    </div>
+
+      <div class="hero-wave base-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <path
+            fill="#ff4500"
+            d="M0,96L60,128C120,160,240,224,360,224C480,224,600,160,720,117.3C840,75,960,53,1080,48C1200,43,1320,53,1380,58.7L1440,64L1440,320L0,320Z">
+          </path>
+        </svg>
+      </div>
+
+      <div class="hero-wave overlay-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <path
+            fill="#ff6b00"
+            fill-opacity="0.8"
+            d="M0,224L60,218.7C120,213,240,203,360,218.7C480,235,600,277,720,277.3C840,277,960,235,1080,202.7C1200,171,1320,149,1380,138.7L1440,128L1440,320L0,320Z">
+          </path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ==============================
+         EDUCATION SECTION
+    =============================== -->
+    <section class="section white" id="education">
+      <div class="education-container">
+
+        <h2 class="section-title animate-up">Education</h2>
+
+        <div class="edu-tabs animate-up">
+          <button class="edu-tab active" data-tab="college">College</button>
+          <button class="edu-tab" data-tab="shs">Senior High</button>
+          <button class="edu-tab" data-tab="middle">Highschool</button>
+          <button class="edu-tab" data-tab="elementary">Elementary</button>
+        </div>
+
+        <div class="edu-content">
+
+          <div class="edu-panel active" id="college">
+            <h3>Bachelor of Science in Information Technology</h3>
+            <span class="school">City College of Calamba Graduated: June 2025</span>
+            <span class="year">2021 - 2025</span>
+            <p>
+              Studied software / Web development, database management,
+              networking, and web technologies. Completed a capstone
+              project focused on real-world IT solutions in Casa Verde De Banadero.
+            </p>
+          </div>
+
+          <div class="edu-panel" id="shs">
+            <h3>Senior High School – ICT Strand</h3>
+            <span class="school">City Global College Graduated: May 2021</span>
+            <span class="year">2020 - 2021</span>
+            <p>
+              Learned computer fundamentals, programming basics,
+              hardware troubleshooting, and Microsoft Excel.
+            </p>
+          </div>
+
+          <div class="edu-panel" id="middle">
+            <h3>Highschool</h3>
+            <span class="school">Lecheria National Highschool Graduated: March 2020</span>
+            <span class="year">2014 – 2020</span>
+            <p>
+              Learned basic ICT skills including computer assembly
+              and troubleshooting.
+            </p>
+          </div>
+
+          <div class="edu-panel" id="elementary">
+            <h3>Elementary School</h3>
+            <span class="school">Central 2 Graduated: March 2014</span>
+            <span class="year">2007 – 2014</span>
+            <p>
+              Completed basic education, laying the groundwork for future learning.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="education-logos animate-up">
+          <div class="logos-slider">
+            <img src="images/logo/ccc.png" alt="College Logo" />
+            <img src="images/logo/Cgc.png" alt="Senior High Logo" />
+            <img src="images/logo/lIS.png" alt="Highschool Logo" />
+            <img src="images/logo/c2.png" alt="Elementary Logo" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+    <!-- CONTACT SECTION -->
+    <section class="contact" id="contact">
+      <div class="contact-wrapper">
+
+        <div class="contact-info">
+          <h3>Contact Info</h3>
+
+          <div class="info-item">
+            <img src="images/icon/location.png" alt="Location">
+            <div>
+              <h4>Location</h4>
+              <p>Calamba, Laguna, Philippines</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <img src="images/icon/phone.png" alt="Phone">
+            <div>
+              <h4>Phone</h4>
+              <p>+63 946 7577 265</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <img src="images/icon/hourglass.png" alt="Hours">
+            <div>
+              <h4>Hours</h4>
+              <p>Mon – Fri, 10AM – 12AM</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="contact-form">
+          <h2>Contact Form</h2>
+
+          <label>Full Name</label>
+          <input type="text" placeholder="Your name">
+
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com">
+
+          <label>Message</label>
+          <textarea rows="4" placeholder="Write your message..."></textarea>
+
+          <button type="submit">Submit</button>
+        </div>
+
+        <div class="logo-box">
+          <img src="images/icon/moon.png" alt="Logo">
+        </div>
+
+      </div>
+    </section>
+
+
+    
+<footer class="footer">
+  <div class="footer-container">
+    
+    <!-- Logo and About -->
+    <div class="footer-logo">
+      <div class="logo-group">
+        <img src="images/logo/ccc.png" alt="Logo Main" class="main-logo">
+        <img src="images/logo/Cgc.png" alt="Logo 1">
+        <img src="images/logo/lIS.png" alt="Logo 2">
+        <img src="images/logo/c2.png" alt="Logo 3">
+        <img src="images/logo/scholar.png" alt="Logo 4">
+      </div>
+      <p>© 2026 Charles (TechDummvry). All Rights Reserved.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+
+    <!-- Subscribe -->
+    <div class="footer-subscribe">
+      <h4>Subscribe</h4>
+      <p>Get updates on my latest projects and news.</p>
+      <form class="subscribe-form">
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    
+  </div>
+</footer>
+
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
