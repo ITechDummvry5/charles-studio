@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CinemaX — Watch. Experience. Feel.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="site-wrap">
+
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="topnav" id="topnav">
+      <a href="#" class="nav-logo">CINEMA<em>X</em></a>
+      <div class="nav-links">
+        <a href="#" class="nav-link active">Home</a>
+        <a href="#" class="nav-link">Movies</a>
+        <a href="#" class="nav-link">Series</a>
+        <a href="#" class="nav-link">My List</a>
+        <a href="#" class="nav-link">New &amp; Popular</a>
+      </div>
+      <div class="nav-right">
+        <button class="nav-icon-btn" aria-label="Search"><i class="ti ti-search" aria-hidden="true"></i></button>
+        <button class="nav-icon-btn" aria-label="Notifications"><i class="ti ti-bell" aria-hidden="true"></i></button>
+        <div class="nav-avatar" aria-label="Profile">C</div>
+      </div>
+    </nav>
+
+    <!-- ═══ HERO + COVERFLOW ═══ -->
+    <main>
+      <section class="hero-section">
+        <!-- Backgrounds — scoped to hero only -->
+        <div class="bg-backdrop" id="bgBackdrop"></div>
+        <div class="bg-vignette"></div>
+        <div class="bg-gradient-bottom"></div>
+
+        <!-- LEFT: hero info -->
+        <div class="hero">
+          <div class="hero-meta" id="heroMeta">
+            <div class="hero-badges" id="heroBadges"></div>
+            <h1 class="hero-title" id="heroTitle"></h1>
+            <p class="hero-desc" id="heroDesc"></p>
+            <div class="hero-stats" id="heroStats"></div>
+            <div class="hero-actions">
+              <button class="btn-play"><i class="ti ti-player-play-filled" aria-hidden="true"></i> Play Now</button>
+              <button class="btn-info"><i class="ti ti-info-circle" aria-hidden="true"></i> Details</button>
+              <button class="btn-icon-round" aria-label="Add to list"><i class="ti ti-bookmark" aria-hidden="true"></i></button>
+              <button class="btn-icon-round" aria-label="Like"><i class="ti ti-heart" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: coverflow -->
+        <div class="cf-column">
+          <div class="coverflow-root" id="coverflow">
+            <div class="stage" id="stage" role="region" aria-label="Movie carousel"></div>
+            <div class="reflection-stage" id="reflectionStage" aria-hidden="true"></div>
+          </div>
+          <div class="controls">
+            <div class="dots" id="dots" role="tablist" aria-label="Select movie"></div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ═══ GENRE FILTER ROW ═══ -->
+      <section class="genre-section">
+        <div class="genre-filters" id="genreFilters">
+          <button class="genre-pill active" data-genre="all">All</button>
+          <button class="genre-pill" data-genre="Adventure">Adventure</button>
+          <button class="genre-pill" data-genre="Thriller">Thriller</button>
+          <button class="genre-pill" data-genre="Documentary">Documentary</button>
+          <button class="genre-pill" data-genre="Noir">Noir</button>
+          <button class="genre-pill" data-genre="Romance">Romance</button>
+          <button class="genre-pill" data-genre="Survival">Survival</button>
+          <button class="genre-pill" data-genre="Sci-Fi">Sci-Fi</button>
+          <button class="genre-pill" data-genre="Drama">Drama</button>
+          <button class="genre-pill" data-genre="Fantasy">Fantasy</button>
+          <button class="genre-pill" data-genre="Horror">Horror</button>
+        </div>
+      </section>
+
+      <!-- ═══ TRENDING ROW ═══ -->
+      <section class="row-section" id="trendingSection">
+        <div class="row-header">
+          <h2 class="row-title"><span class="row-title-accent">Trending</span> This Week</h2>
+          <a href="#" class="row-see-all">See all <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="movie-row" id="trendingRow"></div>
+      </section>
+
+      <!-- ═══ TOP RATED ROW ═══ -->
+      <section class="row-section" id="topRatedSection">
+        <div class="row-header">
+          <h2 class="row-title"><span class="row-title-accent">Top Rated</span> All Time</h2>
+          <a href="#" class="row-see-all">See all <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="movie-row" id="topRatedRow"></div>
+      </section>
+
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-logo">CINEMA<em>X</em></span>
+          <p class="footer-tagline">Watch. Experience. Feel.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Twitter"><i class="ti ti-brand-x" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Instagram"><i class="ti ti-brand-instagram" aria-hidden="true"></i></a>
+            <a href="#" aria-label="YouTube"><i class="ti ti-brand-youtube" aria-hidden="true"></i></a>
+            <a href="#" aria-label="TikTok"><i class="ti ti-brand-tiktok" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Browse</h4>
+            <a href="#">Home</a>
+            <a href="#">Movies</a>
+            <a href="#">Series</a>
+            <a href="#">Documentaries</a>
+            <a href="#">New Releases</a>
+          </div>
+          <div class="footer-col">
+            <h4>Genres</h4>
+            <a href="#">Action</a>
+            <a href="#">Drama</a>
+            <a href="#">Thriller</a>
+            <a href="#">Sci-Fi</a>
+            <a href="#">Horror</a>
+          </div>
+          <div class="footer-col">
+            <h4>Account</h4>
+            <a href="#">My Profile</a>
+            <a href="#">Watchlist</a>
+            <a href="#">Downloads</a>
+            <a href="#">Settings</a>
+            <a href="#">Help Center</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="#">About Us</a>
+            <a href="#">Careers</a>
+            <a href="#">Press</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 CinemaX. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Cookie Preferences</a>
+          <a href="#">Accessibility</a>
+          <a href="#">Legal</a>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /site-wrap -->
+
+  <!-- Movie Detail Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close"><i class="ti ti-x" aria-hidden="true"></i></button>
+      <div class="modal-hero" id="modalHero"></div>
+      <div class="modal-body">
+        <div class="modal-badges" id="modalBadges"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-actions">
+          <button class="btn-play btn-play-lg"><i class="ti ti-player-play-filled" aria-hidden="true"></i> Play</button>
+          <button class="btn-icon-round" aria-label="Bookmark"><i class="ti ti-bookmark" aria-hidden="true"></i></button>
+          <button class="btn-icon-round" aria-label="Like"><i class="ti ti-heart" aria-hidden="true"></i></button>
+          <button class="btn-icon-round" aria-label="Share"><i class="ti ti-share" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

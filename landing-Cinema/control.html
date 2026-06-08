@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CinemaX — Control Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06060f;
+  --surface:#0d0d1a;
+  --surface2:#13131f;
+  --surface3:#1a1a28;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --accent:#e50914;
+  --accent-dim:rgba(229,9,20,0.12);
+  --accent2:#f5c518;
+  --text:#f0f0f5;
+  --text-muted:#7777a0;
+  --text-dim:#444466;
+  --green:#22c55e;
+  --green-dim:rgba(34,197,94,0.12);
+  --blue:#3b82f6;
+  --blue-dim:rgba(59,130,246,0.12);
+  --amber:#f59e0b;
+  --amber-dim:rgba(245,158,11,0.12);
+  --red:#ef4444;
+  --red-dim:rgba(239,68,68,0.12);
+  --font-display:'Bebas Neue',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'Space Mono',monospace;
+  --ease:cubic-bezier(0.25,0.8,0.25,1);
+  --panel-w:480px;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--text-dim);border-radius:2px}
+
+/* ── LAYOUT ── */
+.layout{display:flex;height:100vh;overflow:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:220px;flex-shrink:0;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  padding:0;overflow-y:auto;
+}
+.sidebar-logo{
+  padding:1.5rem 1.25rem 1rem;
+  font-family:var(--font-display);
+  font-size:1.5rem;letter-spacing:0.1em;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.sidebar-logo em{color:var(--accent);font-style:normal}
+.sidebar-logo small{
+  display:block;font-family:var(--font-body);
+  font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--text-muted);margin-top:2px;
+}
+.sidebar-section{padding:1.25rem 1rem 0.5rem;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim)}
+.sidebar-item{
+  display:flex;align-items:center;gap:10px;
+  padding:0.55rem 1.25rem;font-size:0.83rem;
+  color:var(--text-muted);cursor:pointer;
+  border-left:2px solid transparent;
+  transition:all 0.18s;text-decoration:none;
+}
+.sidebar-item i{font-size:1rem}
+.sidebar-item:hover{color:var(--text);background:rgba(255,255,255,0.04)}
+.sidebar-item.active{color:var(--text);border-left-color:var(--accent);background:var(--accent-dim)}
+.sidebar-footer{
+  margin-top:auto;padding:1rem 1.25rem;
+  border-top:1px solid var(--border);
+  font-size:0.72rem;color:var(--text-dim);
+}
+.sidebar-footer a{color:var(--text-muted);text-decoration:none;transition:color 0.2s}
+.sidebar-footer a:hover{color:var(--text)}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+
+/* topbar */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:60px;flex-shrink:0;
+  background:var(--surface);border-bottom:1px solid var(--border);
+  gap:1rem;
+}
+.topbar-title{font-family:var(--font-display);font-size:1.3rem;letter-spacing:0.05em}
+.topbar-right{display:flex;align-items:center;gap:0.75rem}
+
+.search-wrap{
+  position:relative;display:flex;align-items:center;
+}
+.search-wrap i{
+  position:absolute;left:10px;font-size:0.95rem;
+  color:var(--text-dim);pointer-events:none;
+}
+.search-input{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;padding:0.42rem 0.75rem 0.42rem 2.1rem;
+  font-family:var(--font-body);font-size:0.82rem;color:var(--text);
+  width:220px;transition:border-color 0.2s,width 0.3s;outline:none;
+}
+.search-input::placeholder{color:var(--text-dim)}
+.search-input:focus{border-color:var(--border2);width:260px}
+
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--font-body);font-size:0.82rem;font-weight:500;
+  padding:0.48rem 1rem;border-radius:8px;cursor:pointer;
+  transition:all 0.18s;border:1px solid transparent;letter-spacing:0.01em;
+}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#c50812;border-color:#c50812}
+.btn-ghost{background:var(--surface2);color:var(--text-muted);border-color:var(--border)}
+.btn-ghost:hover{color:var(--text);border-color:var(--border2);background:var(--surface3)}
+.btn-danger{background:var(--red-dim);color:var(--red);border-color:rgba(239,68,68,0.25)}
+.btn-danger:hover{background:rgba(239,68,68,0.2)}
+.btn-sm{padding:0.32rem 0.7rem;font-size:0.75rem;border-radius:6px}
+.btn:active{transform:scale(0.97)}
+
+/* ── CONTENT ── */
+.content{flex:1;overflow-y:auto;padding:1.75rem 2rem}
+
+/* stats row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.75rem}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:1rem 1.25rem;
+}
+.stat-label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.4rem}
+.stat-value{font-family:var(--font-display);font-size:2rem;letter-spacing:0.03em;line-height:1}
+.stat-sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.stat-card.c-red .stat-value{color:var(--accent)}
+.stat-card.c-green .stat-value{color:var(--green)}
+.stat-card.c-blue .stat-value{color:var(--blue)}
+.stat-card.c-amber .stat-value{color:var(--amber2,var(--accent2))}
+
+/* filter bar */
+.filter-bar{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.filter-label{font-size:0.75rem;color:var(--text-muted)}
+.filter-pills{display:flex;gap:0.4rem;flex-wrap:wrap}
+.fpill{
+  font-size:0.72rem;font-weight:500;padding:0.3rem 0.85rem;
+  border-radius:100px;border:1px solid var(--border);
+  background:transparent;color:var(--text-muted);cursor:pointer;
+  transition:all 0.18s;
+}
+.fpill:hover{border-color:var(--border2);color:var(--text)}
+.fpill.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* table */
+.table-wrap{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;
+}
+.table-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.25rem;border-bottom:1px solid var(--border);
+}
+.table-header-title{font-size:0.85rem;font-weight:500}
+.table-count{
+  font-family:var(--font-mono);font-size:0.7rem;
+  color:var(--text-muted);background:var(--surface2);
+  padding:2px 8px;border-radius:4px;border:1px solid var(--border);
+}
+
+table{width:100%;border-collapse:collapse}
+thead th{
+  text-align:left;padding:0.7rem 1rem;
+  font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--text-dim);font-weight:500;font-family:var(--font-body);
+  border-bottom:1px solid var(--border);white-space:nowrap;
+}
+tbody tr{border-bottom:1px solid var(--border);transition:background 0.15s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(255,255,255,0.025)}
+tbody td{padding:0.7rem 1rem;font-size:0.82rem;vertical-align:middle}
+
+.cell-poster{
+  width:38px;height:54px;border-radius:6px;
+  background:var(--surface3);
+  background-size:cover;background-position:center;
+  border:1px solid var(--border);flex-shrink:0;
+}
+.cell-title-wrap{display:flex;align-items:center;gap:10px}
+.cell-title{font-weight:500;color:var(--text);white-space:nowrap}
+.cell-author{font-size:0.72rem;color:var(--text-muted);margin-top:2px}
+
+.tag{
+  display:inline-flex;align-items:center;
+  font-size:0.62rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  padding:2px 7px;border-radius:4px;border:1px solid transparent;
+}
+.tag-genre{background:var(--blue-dim);color:var(--blue);border-color:rgba(59,130,246,0.2)}
+.tag-type{background:var(--surface3);color:var(--text-muted);border-color:var(--border)}
+.tag-4k{background:rgba(245,197,24,0.12);color:var(--accent2);border-color:rgba(245,197,24,0.25)}
+.tag-hdr{background:rgba(139,92,246,0.12);color:#a78bfa;border-color:rgba(139,92,246,0.25)}
+.genres-cell{display:flex;gap:4px;flex-wrap:wrap;max-width:160px}
+
+.badge-status{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:0.68rem;font-weight:600;letter-spacing:0.06em;
+  padding:3px 8px;border-radius:100px;
+}
+.badge-ongoing{background:var(--green-dim);color:var(--green)}
+.badge-ongoing::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block}
+.badge-finished{background:var(--surface3);color:var(--text-muted)}
+.badge-finished::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--text-dim);display:inline-block}
+
+.top10-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:5px;
+  font-family:var(--font-mono);font-size:0.62rem;font-weight:700;
+}
+.top10-yes{background:var(--accent-dim);color:var(--accent);border:1px solid rgba(229,9,20,0.25)}
+.top10-no{background:var(--surface3);color:var(--text-dim)}
+
+.stars{color:var(--accent2);font-size:0.8rem;letter-spacing:-1px;font-family:var(--font-mono)}
+.stars-val{color:var(--text-muted);font-size:0.7rem;margin-left:3px;font-family:var(--font-mono)}
+
+.cell-actions{display:flex;gap:6px;justify-content:flex-end}
+.icon-btn{
+  width:30px;height:30px;border-radius:7px;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);background:transparent;
+  color:var(--text-muted);cursor:pointer;font-size:0.95rem;
+  transition:all 0.18s;
+}
+.icon-btn:hover.edit{border-color:rgba(59,130,246,0.4);background:var(--blue-dim);color:var(--blue)}
+.icon-btn:hover.delete{border-color:rgba(239,68,68,0.4);background:var(--red-dim);color:var(--red)}
+
+/* empty state */
+.empty-state{
+  padding:4rem 2rem;text-align:center;
+  color:var(--text-dim);
+}
+.empty-state i{font-size:2.5rem;display:block;margin-bottom:0.75rem;opacity:0.4}
+.empty-state p{font-size:0.85rem}
+
+/* ── SLIDE PANEL ── */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);z-index:90;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.overlay.open{opacity:1;pointer-events:auto}
+
+.panel{
+  position:fixed;top:0;right:0;bottom:0;
+  width:var(--panel-w);max-width:96vw;
+  background:var(--surface);
+  border-left:1px solid var(--border);
+  z-index:100;display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform 0.35s var(--ease);
+  overflow:hidden;
+}
+.panel.open{transform:translateX(0)}
+
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.panel-head-title{font-family:var(--font-display);font-size:1.4rem;letter-spacing:0.05em}
+.panel-head-sub{font-size:0.72rem;color:var(--text-muted);margin-top:1px}
+
+.panel-body{flex:1;overflow-y:auto;padding:1.5rem}
+
+.form-grid{display:grid;gap:1.1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)}
+.field-hint{font-size:0.67rem;color:var(--text-dim);margin-top:-2px}
+
+input[type=text],input[type=number],select,textarea{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;padding:0.55rem 0.85rem;
+  font-family:var(--font-body);font-size:0.85rem;color:var(--text);
+  outline:none;width:100%;transition:border-color 0.2s;
+  -webkit-appearance:none;
+}
+input[type=text]::placeholder,textarea::placeholder{color:var(--text-dim)}
+input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{border-color:rgba(229,9,20,0.5);box-shadow:0 0 0 3px var(--accent-dim)}
+select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237777a0' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:2rem}
+textarea{resize:vertical;min-height:80px;line-height:1.6}
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+
+/* multi-select genre chips */
+.genre-chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;min-height:44px;transition:border-color 0.2s}
+.genre-chips.focused{border-color:rgba(229,9,20,0.5);box-shadow:0 0 0 3px var(--accent-dim)}
+.gchip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:0.72rem;font-weight:600;letter-spacing:0.06em;
+  padding:4px 8px;border-radius:5px;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface3);color:var(--text-muted);
+  transition:all 0.15s;user-select:none;
+}
+.gchip.selected{background:var(--blue-dim);color:var(--blue);border-color:rgba(59,130,246,0.35)}
+.gchip:hover:not(.selected){border-color:var(--border2);color:var(--text)}
+
+/* star rating input */
+.star-rating{display:flex;gap:4px;align-items:center}
+.star-rating input[type=range]{
+  flex:1;height:4px;border:none;border-radius:2px;
+  background:var(--surface3);box-shadow:none;padding:0;
+  accent-color:var(--accent2);cursor:pointer;
+}
+.star-display{
+  font-family:var(--font-mono);font-size:0.95rem;min-width:44px;
+  color:var(--accent2);text-align:right;
+}
+
+/* type select boxes */
+.type-boxes{display:flex;gap:6px;flex-wrap:wrap}
+.type-box{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:7px;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface2);
+  color:var(--text-muted);font-size:0.75rem;font-weight:600;
+  letter-spacing:0.06em;transition:all 0.18s;user-select:none;
+}
+.type-box input{display:none}
+.type-box.selected,.type-box:has(input:checked){background:var(--amber-dim);color:var(--accent2);border-color:rgba(245,197,24,0.35)}
+
+/* status toggle */
+.status-toggle{display:flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--surface2)}
+.status-opt{
+  flex:1;text-align:center;padding:0.5rem;
+  font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.2s;color:var(--text-muted);
+}
+.status-opt.active-ongoing{background:var(--green-dim);color:var(--green)}
+.status-opt.active-finished{background:var(--surface3);color:var(--text-muted)}
+
+/* top10 toggle */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:0.65rem 0.85rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px}
+.toggle-label{font-size:0.82rem;color:var(--text)}
+.toggle-label small{display:block;font-size:0.7rem;color:var(--text-muted);margin-top:1px}
+.toggle-switch{position:relative;width:42px;height:24px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0}
+.toggle-knob{
+  position:absolute;inset:0;border-radius:12px;
+  background:var(--surface3);border:1px solid var(--border);
+  cursor:pointer;transition:background 0.25s,border-color 0.25s;
+}
+.toggle-knob::after{
+  content:'';position:absolute;left:3px;top:3px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--text-dim);transition:transform 0.25s,background 0.25s;
+}
+.toggle-switch input:checked+.toggle-knob{background:var(--accent);border-color:var(--accent)}
+.toggle-switch input:checked+.toggle-knob::after{transform:translateX(18px);background:#fff}
+
+/* img preview */
+.img-preview-wrap{position:relative}
+.img-preview{
+  width:100%;height:120px;border-radius:8px;
+  background:var(--surface2);border:1px solid var(--border);
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;transition:border-color 0.2s;
+}
+.img-preview-placeholder{color:var(--text-dim);font-size:0.78rem;text-align:center;pointer-events:none}
+.img-preview-placeholder i{font-size:1.6rem;display:block;margin-bottom:5px;opacity:0.4}
+
+/* panel footer */
+.panel-foot{
+  padding:1rem 1.5rem;border-top:1px solid var(--border);
+  display:flex;gap:0.65rem;justify-content:flex-end;flex-shrink:0;
+  background:var(--surface);
+}
+
+/* toast */
+.toast{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:0.8rem 1.2rem;
+  display:flex;align-items:center;gap:10px;
+  font-size:0.83rem;box-shadow:0 8px 32px rgba(0,0,0,0.5);
+  transform:translateY(120%);opacity:0;
+  transition:transform 0.35s var(--ease),opacity 0.35s;
+  max-width:300px;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast i{font-size:1.1rem}
+.toast.success i{color:var(--green)}
+.toast.error i{color:var(--red)}
+.toast.info i{color:var(--blue)}
+
+/* confirm dialog */
+.confirm-dialog{
+  position:fixed;inset:0;z-index:150;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;transition:opacity 0.25s;
+}
+.confirm-dialog.open{opacity:1;pointer-events:auto}
+.confirm-box{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:1.75rem;width:360px;max-width:92vw;
+  transform:scale(0.95);transition:transform 0.25s var(--ease);
+}
+.confirm-dialog.open .confirm-box{transform:scale(1)}
+.confirm-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--red-dim);border:1px solid rgba(239,68,68,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;color:var(--red);margin-bottom:1rem;
+}
+.confirm-title{font-size:1rem;font-weight:600;margin-bottom:0.4rem}
+.confirm-msg{font-size:0.83rem;color:var(--text-muted);line-height:1.6;margin-bottom:1.5rem}
+.confirm-actions{display:flex;gap:0.65rem;justify-content:flex-end}
+
+/* responsive */
+@media(max-width:800px){
+  .sidebar{display:none}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:500px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .content{padding:1rem}
+  .topbar{padding:0 1rem}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      CINEMA<em>X</em>
+      <small>Control Panel</small>
+    </div>
+    <div class="sidebar-section">Library</div>
+    <a href="#" class="sidebar-item active"><i class="ti ti-movie"></i> All Titles</a>
+    <a href="#" class="sidebar-item"><i class="ti ti-chart-bar"></i> Analytics</a>
+    <a href="#" class="sidebar-item"><i class="ti ti-star"></i> Top 10</a>
+    <div class="sidebar-section">Settings</div>
+    <a href="#" class="sidebar-item"><i class="ti ti-tag"></i> Genres</a>
+    <a href="#" class="sidebar-item"><i class="ti ti-users"></i> Users</a>
+    <a href="#" class="sidebar-item"><i class="ti ti-settings"></i> Preferences</a>
+    <div class="sidebar-footer">
+      <div style="margin-bottom:6px"><a href="index.html"><i class="ti ti-arrow-left" style="font-size:0.8rem"></i> Back to Site</a></div>
+      CinemaX Admin v1.0
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+
+    <!-- topbar -->
+    <header class="topbar">
+      <div class="topbar-title">Titles</div>
+      <div class="topbar-right">
+        <div class="search-wrap">
+          <i class="ti ti-search"></i>
+          <input class="search-input" id="searchInput" type="text" placeholder="Search titles…"/>
+        </div>
+        <button class="btn btn-primary" id="btnAdd">
+          <i class="ti ti-plus"></i> Add Title
+        </button>
+      </div>
+    </header>
+
+    <!-- content -->
+    <div class="content">
+
+      <!-- stats -->
+      <div class="stats-row" id="statsRow">
+        <div class="stat-card c-red">
+          <div class="stat-label">Total Titles</div>
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-sub">in library</div>
+        </div>
+        <div class="stat-card c-green">
+          <div class="stat-label">Ongoing</div>
+          <div class="stat-value" id="statOngoing">0</div>
+          <div class="stat-sub">airing now</div>
+        </div>
+        <div class="stat-card c-blue">
+          <div class="stat-label">Top 10</div>
+          <div class="stat-value" id="statTop10">0</div>
+          <div class="stat-sub">featured</div>
+        </div>
+        <div class="stat-card c-amber">
+          <div class="stat-label">Avg Rating</div>
+          <div class="stat-value" id="statAvgRating">—</div>
+          <div class="stat-sub">out of 10</div>
+        </div>
+      </div>
+
+      <!-- filter bar -->
+      <div class="filter-bar">
+        <span class="filter-label">Filter:</span>
+        <div class="filter-pills" id="filterPills">
+          <button class="fpill active" data-filter="all">All</button>
+          <button class="fpill" data-filter="ongoing">Ongoing</button>
+          <button class="fpill" data-filter="finished">Finished</button>
+          <button class="fpill" data-filter="top10">Top 10</button>
+        </div>
+      </div>
+
+      <!-- table -->
+      <div class="table-wrap">
+        <div class="table-header">
+          <span class="table-header-title">Library</span>
+          <span class="table-count" id="tableCount">0 titles</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table id="titlesTable">
+            <thead>
+              <tr>
+                <th style="width:48px"></th>
+                <th>Title / Author</th>
+                <th>Genres</th>
+                <th>Year</th>
+                <th>Type</th>
+                <th>Rating</th>
+                <th>Status</th>
+                <th>Top 10</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="emptyState" style="display:none">
+          <i class="ti ti-movie-off"></i>
+          <p>No titles found. Add your first one!</p>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<!-- ── SLIDE PANEL (Add / Edit) ── -->
+<div class="overlay" id="overlay"></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="panelTitle">
+
+  <div class="panel-head">
+    <div>
+      <div class="panel-head-title" id="panelTitle">Add Title</div>
+      <div class="panel-head-sub" id="panelSub">Fill in the details below</div>
+    </div>
+    <button class="icon-btn" id="panelClose" aria-label="Close panel"><i class="ti ti-x"></i></button>
+  </div>
+
+  <div class="panel-body">
+    <form class="form-grid" id="titleForm" autocomplete="off">
+      <input type="hidden" id="fId"/>
+
+      <!-- Name -->
+      <div class="field">
+        <label for="fName">Name / Title</label>
+        <input type="text" id="fName" placeholder="e.g. Ocean Horizon" required/>
+      </div>
+
+      <!-- Author -->
+      <div class="field">
+        <label for="fAuthor">Author / Director</label>
+        <input type="text" id="fAuthor" placeholder="e.g. James Cameron"/>
+      </div>
+
+      <!-- Description -->
+      <div class="field">
+        <label for="fDesc">Description</label>
+        <textarea id="fDesc" placeholder="Short synopsis…" rows="3"></textarea>
+      </div>
+
+      <!-- Genre (multi-select chips) -->
+      <div class="field">
+        <label>Category / Genre <span style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0">(select multiple)</span></label>
+        <div class="genre-chips" id="genreChips"></div>
+      </div>
+
+      <!-- Year + Rating -->
+      <div class="form-row">
+        <div class="field">
+          <label for="fYear">Year</label>
+          <input type="number" id="fYear" placeholder="2024" min="1900" max="2099"/>
+        </div>
+        <div class="field">
+          <label>Rating <span style="font-weight:400;letter-spacing:0;text-transform:none;font-size:0.68rem;color:var(--text-dim)">(stars 1–10)</span></label>
+          <div class="star-rating">
+            <input type="range" id="fRating" min="1" max="10" step="0.1" value="7.5"/>
+            <div class="star-display" id="ratingDisplay">7.5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Type -->
+      <div class="field">
+        <label>Type / Quality</label>
+        <div class="type-boxes" id="typeBoxes">
+          <label class="type-box" data-val="HD"><input type="radio" name="fType" value="HD"/> HD</label>
+          <label class="type-box" data-val="4K"><input type="radio" name="fType" value="4K"/> 4K</label>
+          <label class="type-box" data-val="4K HDR"><input type="radio" name="fType" value="4K HDR"/> 4K HDR</label>
+          <label class="type-box" data-val="CAM"><input type="radio" name="fType" value="CAM"/> CAM</label>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="field">
+        <label>Status</label>
+        <div class="status-toggle" id="statusToggle">
+          <div class="status-opt active-ongoing" data-val="Ongoing" id="statusOngoing">▶ Ongoing</div>
+          <div class="status-opt" data-val="Finished" id="statusFinished">✓ Finished</div>
+        </div>
+        <input type="hidden" id="fStatus" value="Ongoing"/>
+      </div>
+
+      <!-- Top 10 -->
+      <div class="field">
+        <div class="toggle-row">
+          <label class="toggle-label" for="fTop10">
+            Top 10
+            <small>Feature this title in the top 10 trending list</small>
+          </label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="fTop10"/>
+            <span class="toggle-knob"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Image URL -->
+      <div class="field">
+        <label for="fImg">Image URL or Path</label>
+        <input type="text" id="fImg" placeholder="assets/1.jpg or https://…"/>
+        <span class="field-hint">Paste a URL or local asset path</span>
+        <div class="img-preview" id="imgPreview" style="margin-top:8px">
+          <div class="img-preview-placeholder" id="imgPlaceholder">
+            <i class="ti ti-photo"></i>
+            Preview appears here
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="panel-foot">
+    <button class="btn btn-ghost" id="panelCancel">Cancel</button>
+    <button class="btn btn-primary" id="panelSave"><i class="ti ti-device-floppy"></i> Save</button>
+  </div>
+</aside>
+
+<!-- ── CONFIRM DELETE ── -->
+<div class="confirm-dialog" id="confirmDialog">
+  <div class="confirm-box">
+    <div class="confirm-icon"><i class="ti ti-trash"></i></div>
+    <div class="confirm-title">Delete title?</div>
+    <div class="confirm-msg" id="confirmMsg">This will permanently remove the title from your library.</div>
+    <div class="confirm-actions">
+      <button class="btn btn-ghost" id="confirmCancel">Keep it</button>
+      <button class="btn btn-danger" id="confirmOk"><i class="ti ti-trash"></i> Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">
+  <i class="ti ti-check" id="toastIcon"></i>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   CONSTANTS
+═══════════════════════════════════════ */
+const STORAGE_KEY = 'cinemax_titles';
+
+const ALL_GENRES = [
+  'Action','Adventure','Animation','Comedy','Crime','Documentary',
+  'Drama','Fantasy','Horror','Mystery','Noir','Romance',
+  'Sci-Fi','Survival','Thriller','Western'
+];
+
+const DEFAULT_ITEMS = [
+  { id:uid(), name:'Ocean Horizon',     author:'',           desc:'A lone sailor crosses the Pacific on a bet — and discovers something far greater than the finish line.',  genres:['Adventure','Drama'],    year:'2024', rating:8.4, type:'4K',     status:'Finished', top10:true,  img:'assets/1.jpg' },
+  { id:uid(), name:'Desert Bloom',      author:'',           desc:'A geologist uncovers an ancient signal buried beneath the sand — and someone is willing to kill to keep it secret.', genres:['Thriller','Mystery'],   year:'2023', rating:7.9, type:'HD',     status:'Finished', top10:true,  img:'assets/2.jpg' },
+  { id:uid(), name:'Forest Canopy',     author:'',           desc:'High above the Amazon floor, a team of scientists maps an untouched world.',                             genres:['Documentary','Nature'],  year:'2024', rating:9.1, type:'4K HDR', status:'Finished', top10:false, img:'assets/3.jpg' },
+  { id:uid(), name:'City at Dusk',      author:'',           desc:'A disgraced detective takes one last case — a missing heiress in a city that swallows secrets whole.',    genres:['Noir','Crime'],          year:'2023', rating:8.7, type:'HD',     status:'Finished', top10:true,  img:'assets/4.jpg' },
+  { id:uid(), name:'Coral Sands',       author:'',           desc:'Two marine biologists clash over conservation — and slowly fall for each other under the warm glow of the tropics.', genres:['Romance','Drama'],      year:'2024', rating:7.6, type:'4K',     status:'Ongoing',  top10:false, img:'assets/5.jpg' },
+  { id:uid(), name:'Alpine Mist',       author:'',           desc:'Stranded above 4,000 metres in a whiteout storm, a climber must confront the mountain — and her own past.', genres:['Survival','Action'],     year:'2023', rating:8.2, type:'4K HDR', status:'Finished', top10:true,  img:'assets/6.jpg' },
+  { id:uid(), name:'Neon District',     author:'',           desc:'In 2089 Neo-Shanghai, a data courier uncovers a conspiracy that could rewrite human memory itself.',      genres:['Sci-Fi','Action'],       year:'2024', rating:8.9, type:'4K HDR', status:'Ongoing',  top10:true,  img:'assets/7.jpg' },
+  { id:uid(), name:'Savannah Echoes',   author:'',           desc:'A wildlife photographer returns to the African savannah to confront his past.',                           genres:['Drama','Nature'],        year:'2023', rating:8.0, type:'HD',     status:'Finished', top10:false, img:'assets/8.jpg' },
+  { id:uid(), name:'Lunar Reverie',     author:'',           desc:'In a world where dreams shape reality, a young dreamweaver embarks on a quest to save her city.',         genres:['Fantasy','Adventure'],   year:'2024', rating:8.5, type:'4K',     status:'Ongoing',  top10:true,  img:'assets/9.jpg' },
+  { id:uid(), name:'Midnight Carnival', author:'',           desc:'When a traveling carnival rolls into town, a group of teens discovers the attractions are more than they seem.', genres:['Horror','Thriller'],    year:'2023', rating:7.8, type:'HD',     status:'Finished', top10:false, img:'assets/10.jpg'},
+];
+
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,6) }
+
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let items = [];
+let filterMode = 'all';
+let searchQ    = '';
+let deleteTarget = null;
+let editId = null;
+let selectedGenres = [];
+let currentStatus = 'Ongoing';
+
+function load(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    items = raw ? JSON.parse(raw) : DEFAULT_ITEMS;
+  } catch(e){ items = DEFAULT_ITEMS }
+}
+function save(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
+
+/* ═══════════════════════════════════════
+   DOM REFS
+═══════════════════════════════════════ */
+const tbody         = document.getElementById('tbody');
+const emptyState    = document.getElementById('emptyState');
+const tableCount    = document.getElementById('tableCount');
+const statTotal     = document.getElementById('statTotal');
+const statOngoing   = document.getElementById('statOngoing');
+const statTop10     = document.getElementById('statTop10');
+const statAvgRating = document.getElementById('statAvgRating');
+const searchInput   = document.getElementById('searchInput');
+const filterPills   = document.getElementById('filterPills');
+const panel         = document.getElementById('panel');
+const overlay       = document.getElementById('overlay');
+const panelTitle    = document.getElementById('panelTitle');
+const panelSub      = document.getElementById('panelSub');
+const genreChips    = document.getElementById('genreChips');
+const fId           = document.getElementById('fId');
+const fName         = document.getElementById('fName');
+const fAuthor       = document.getElementById('fAuthor');
+const fDesc         = document.getElementById('fDesc');
+const fYear         = document.getElementById('fYear');
+const fRating       = document.getElementById('fRating');
+const ratingDisplay = document.getElementById('ratingDisplay');
+const fStatus       = document.getElementById('fStatus');
+const fTop10        = document.getElementById('fTop10');
+const fImg          = document.getElementById('fImg');
+const imgPreview    = document.getElementById('imgPreview');
+const imgPlaceholder= document.getElementById('imgPlaceholder');
+const typeBoxes     = document.querySelectorAll('.type-box');
+const statusOngoing = document.getElementById('statusOngoing');
+const statusFinished= document.getElementById('statusFinished');
+const confirmDialog = document.getElementById('confirmDialog');
+const confirmMsg    = document.getElementById('confirmMsg');
+const toast         = document.getElementById('toast');
+const toastIcon     = document.getElementById('toastIcon');
+const toastMsg      = document.getElementById('toastMsg');
+
+/* ═══════════════════════════════════════
+   RENDER TABLE
+═══════════════════════════════════════ */
+function getFiltered(){
+  let list = [...items];
+  if(filterMode === 'ongoing')  list = list.filter(i => i.status === 'Ongoing');
+  if(filterMode === 'finished') list = list.filter(i => i.status === 'Finished');
+  if(filterMode === 'top10')    list = list.filter(i => i.top10);
+  if(searchQ){
+    const q = searchQ.toLowerCase();
+    list = list.filter(i =>
+      i.name.toLowerCase().includes(q) ||
+      (i.author||'').toLowerCase().includes(q) ||
+      (i.genres||[]).some(g => g.toLowerCase().includes(q))
+    );
+  }
+  return list;
+}
+
+function renderTable(){
+  const list = getFiltered();
+  tableCount.textContent = `${list.length} title${list.length!==1?'s':''}`;
+  tbody.innerHTML = '';
+
+  if(!list.length){
+    emptyState.style.display = '';
+    return;
+  }
+  emptyState.style.display = 'none';
+
+  list.forEach(item => {
+    const tr = document.createElement('tr');
+    const stars = starsHtml(item.rating);
+    const typeClass = item.type==='4K'?'tag-4k':item.type==='4K HDR'?'tag-hdr':'tag-type';
+    const statusClass = item.status==='Ongoing'?'badge-ongoing':'badge-finished';
+    const genreTags = (item.genres||[]).map(g=>`<span class="tag tag-genre">${g}</span>`).join('');
+
+    tr.innerHTML = `
+      <td>
+        <div class="cell-poster" style="${item.img?`background-image:url('${item.img}')`:''}"
+             title="${item.name}"></div>
+      </td>
+      <td>
+        <div class="cell-title-wrap">
+          <div>
+            <div class="cell-title">${item.name}</div>
+            ${item.author?`<div class="cell-author">${item.author}</div>`:''}
+          </div>
+        </div>
+      </td>
+      <td><div class="genres-cell">${genreTags||'<span style="color:var(--text-dim);font-size:0.72rem">—</span>'}</div></td>
+      <td style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted)">${item.year||'—'}</td>
+      <td><span class="tag ${typeClass}">${item.type||'—'}</span></td>
+      <td>${stars}</td>
+      <td><span class="badge-status ${statusClass}">${item.status}</span></td>
+      <td>
+        <span class="top10-badge ${item.top10?'top10-yes':'top10-no'}">
+          ${item.top10?'✓':'—'}
+        </span>
+      </td>
+      <td>
+        <div class="cell-actions">
+          <button class="icon-btn edit" data-id="${item.id}" title="Edit" aria-label="Edit ${item.name}">
+            <i class="ti ti-edit"></i>
+          </button>
+          <button class="icon-btn delete" data-id="${item.id}" title="Delete" aria-label="Delete ${item.name}">
+            <i class="ti ti-trash"></i>
+          </button>
+        </div>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function starsHtml(r){
+  const n = parseFloat(r)||0;
+  const full = Math.floor(n/2);
+  const half = (n%2)>=0.75?1:0;
+  let s = '<span class="stars">';
+  for(let i=0;i<full;i++) s+='★';
+  if(half) s+='½';
+  s+=`</span><span class="stars-val">${n.toFixed(1)}</span>`;
+  return s;
+}
+
+function renderStats(){
+  statTotal.textContent    = items.length;
+  statOngoing.textContent  = items.filter(i=>i.status==='Ongoing').length;
+  statTop10.textContent    = items.filter(i=>i.top10).length;
+  const ratings = items.map(i=>parseFloat(i.rating)||0).filter(Boolean);
+  statAvgRating.textContent = ratings.length
+    ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : '—';
+}
+
+function refresh(){ renderStats(); renderTable(); }
+
+/* ═══════════════════════════════════════
+   GENRE CHIPS (build)
+═══════════════════════════════════════ */
+function buildGenreChips(){
+  genreChips.innerHTML = '';
+  ALL_GENRES.forEach(g => {
+    const chip = document.createElement('div');
+    chip.className = 'gchip' + (selectedGenres.includes(g)?' selected':'');
+    chip.textContent = g;
+    chip.dataset.genre = g;
+    chip.addEventListener('click', ()=>{
+      if(selectedGenres.includes(g)){
+        selectedGenres = selectedGenres.filter(x=>x!==g);
+        chip.classList.remove('selected');
+      } else {
+        selectedGenres.push(g);
+        chip.classList.add('selected');
+      }
+    });
+    genreChips.appendChild(chip);
+  });
+}
+
+/* ═══════════════════════════════════════
+   PANEL OPEN / CLOSE
+═══════════════════════════════════════ */
+function openPanel(item=null){
+  editId = item ? item.id : null;
+  panelTitle.textContent = item ? 'Edit Title' : 'Add Title';
+  panelSub.textContent   = item ? `Editing: ${item.name}` : 'Fill in the details below';
+
+  /* reset form */
+  fId.value     = item ? item.id : '';
+  fName.value   = item ? item.name : '';
+  fAuthor.value = item ? (item.author||'') : '';
+  fDesc.value   = item ? (item.desc||'') : '';
+  fYear.value   = item ? (item.year||'') : new Date().getFullYear();
+  fRating.value = item ? (item.rating||7.5) : 7.5;
+  ratingDisplay.textContent = parseFloat(fRating.value).toFixed(1);
+  fTop10.checked = item ? !!item.top10 : false;
+  fImg.value    = item ? (item.img||'') : '';
+  selectedGenres = item ? [...(item.genres||[])] : [];
+
+  /* type radio */
+  typeBoxes.forEach(box => {
+    const inp = box.querySelector('input');
+    const isSelected = item && inp.value === item.type;
+    inp.checked = isSelected;
+    box.classList.toggle('selected', isSelected);
+  });
+
+  /* status */
+  const st = item ? (item.status||'Ongoing') : 'Ongoing';
+  fStatus.value = st;
+  currentStatus = st;
+  statusOngoing.className  = 'status-opt' + (st==='Ongoing'  ?' active-ongoing':'');
+  statusFinished.className = 'status-opt' + (st==='Finished' ?' active-finished':'');
+
+  /* image preview */
+  updateImgPreview(fImg.value);
+
+  /* genre chips */
+  buildGenreChips();
+
+  panel.classList.add('open');
+  overlay.classList.add('open');
+  setTimeout(()=>fName.focus(), 350);
+}
+
+function closePanel(){
+  panel.classList.remove('open');
+  overlay.classList.remove('open');
+  editId = null;
+}
+
+/* ═══════════════════════════════════════
+   SAVE
+═══════════════════════════════════════ */
+function getSelectedType(){
+  for(const box of typeBoxes){
+    if(box.querySelector('input').checked) return box.dataset.val;
+  }
+  return 'HD';
+}
+
+function saveItem(){
+  const name = fName.value.trim();
+  if(!name){ showToast('Title name is required', 'error'); fName.focus(); return; }
+
+  const item = {
+    id:     editId || uid(),
+    name,
+    author:  fAuthor.value.trim(),
+    desc:    fDesc.value.trim(),
+    genres:  [...selectedGenres],
+    year:    fYear.value || '',
+    rating:  parseFloat(fRating.value)||7.5,
+    type:    getSelectedType(),
+    status:  fStatus.value,
+    top10:   fTop10.checked,
+    img:     fImg.value.trim(),
+  };
+
+  if(editId){
+    const idx = items.findIndex(i=>i.id===editId);
+    if(idx>-1) items[idx]=item;
+    showToast(`"${name}" updated`, 'success');
+  } else {
+    items.unshift(item);
+    showToast(`"${name}" added`, 'success');
+  }
+
+  save();
+  closePanel();
+  refresh();
+}
+
+/* ═══════════════════════════════════════
+   DELETE
+═══════════════════════════════════════ */
+function openConfirm(id){
+  deleteTarget = id;
+  const item = items.find(i=>i.id===id);
+  confirmMsg.textContent = item
+    ? `"${item.name}" will be permanently removed from your library.`
+    : 'This title will be permanently removed.';
+  confirmDialog.classList.add('open');
+}
+function closeConfirm(){ confirmDialog.classList.remove('open'); deleteTarget=null; }
+function confirmDelete(){
+  if(!deleteTarget) return;
+  const item = items.find(i=>i.id===deleteTarget);
+  items = items.filter(i=>i.id!==deleteTarget);
+  save(); refresh();
+  closeConfirm();
+  showToast(item?`"${item.name}" deleted`:'Title deleted','info');
+}
+
+/* ═══════════════════════════════════════
+   IMAGE PREVIEW
+═══════════════════════════════════════ */
+function updateImgPreview(url){
+  if(url){
+    imgPreview.style.backgroundImage=`url('${url}')`;
+    imgPlaceholder.style.display='none';
+  } else {
+    imgPreview.style.backgroundImage='';
+    imgPlaceholder.style.display='';
+  }
+}
+
+/* ═══════════════════════════════════════
+   TOAST
+═══════════════════════════════════════ */
+let toastTimer;
+function showToast(msg, type='success'){
+  clearTimeout(toastTimer);
+  toastMsg.textContent = msg;
+  toast.className = `toast ${type}`;
+  const icons = {success:'ti-check',error:'ti-alert-circle',info:'ti-info-circle'};
+  toastIcon.className = `ti ${icons[type]||'ti-check'}`;
+  toast.classList.add('show');
+  toastTimer = setTimeout(()=>toast.classList.remove('show'), 3200);
+}
+
+/* ═══════════════════════════════════════
+   EVENT WIRING
+═══════════════════════════════════════ */
+/* Add button */
+document.getElementById('btnAdd').addEventListener('click', ()=>openPanel());
+
+/* Panel close */
+document.getElementById('panelClose').addEventListener('click', closePanel);
+document.getElementById('panelCancel').addEventListener('click', closePanel);
+overlay.addEventListener('click', closePanel);
+
+/* Save */
+document.getElementById('panelSave').addEventListener('click', saveItem);
+
+/* Rating slider */
+fRating.addEventListener('input', ()=>{
+  ratingDisplay.textContent = parseFloat(fRating.value).toFixed(1);
+});
+
+/* Type radio visual */
+typeBoxes.forEach(box=>{
+  box.addEventListener('click', ()=>{
+    typeBoxes.forEach(b=>b.classList.remove('selected'));
+    box.classList.add('selected');
+  });
+});
+
+/* Status toggle */
+statusOngoing.addEventListener('click', ()=>{
+  fStatus.value = currentStatus = 'Ongoing';
+  statusOngoing.className  = 'status-opt active-ongoing';
+  statusFinished.className = 'status-opt';
+});
+statusFinished.addEventListener('click', ()=>{
+  fStatus.value = currentStatus = 'Finished';
+  statusOngoing.className  = 'status-opt';
+  statusFinished.className = 'status-opt active-finished';
+});
+
+/* Image URL preview */
+fImg.addEventListener('input', ()=>updateImgPreview(fImg.value.trim()));
+
+/* Table row actions (delegation) */
+tbody.addEventListener('click', e=>{
+  const editBtn  = e.target.closest('.edit');
+  const delBtn   = e.target.closest('.delete');
+  if(editBtn){
+    const item = items.find(i=>i.id===editBtn.dataset.id);
+    if(item) openPanel(item);
+  }
+  if(delBtn){ openConfirm(delBtn.dataset.id); }
+});
+
+/* Search */
+searchInput.addEventListener('input', ()=>{
+  searchQ = searchInput.value.trim();
+  renderTable();
+});
+
+/* Filter pills */
+filterPills.addEventListener('click', e=>{
+  const pill = e.target.closest('.fpill');
+  if(!pill) return;
+  filterMode = pill.dataset.filter;
+  document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('active'));
+  pill.classList.add('active');
+  renderTable();
+});
+
+/* Confirm dialog */
+document.getElementById('confirmOk').addEventListener('click', confirmDelete);
+document.getElementById('confirmCancel').addEventListener('click', closeConfirm);
+confirmDialog.addEventListener('click', e=>{ if(e.target===confirmDialog) closeConfirm(); });
+
+/* Keyboard */
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){
+    closePanel();
+    closeConfirm();
+  }
+});
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+load();
+refresh();
+</script>
+</body>
+</html>
