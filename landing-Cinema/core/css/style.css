@@ -22,7 +22,10 @@
   --card-r:       12px;
   --nav-h:        72px;
 }
-
+a{
+  text-decoration: none;
+  color: inherit;
+}
 html { scroll-behavior: smooth; }
 
 html, body {
@@ -350,7 +353,7 @@ html, body {
 
 /* Controls */
 .controls {
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: flex-end;
   margin-top: 1.25rem; width: 100%;
   padding-right: 130px;
 }
@@ -512,6 +515,7 @@ html, body {
 .footer-top {
   display: flex; gap: 4rem;
   margin-bottom: 2.5rem;
+  margin-inline: 3rem;
 }
 
 .footer-brand { flex-shrink: 0; }
@@ -544,7 +548,7 @@ html, body {
 .footer-socials a:hover { color: var(--text); border-color: var(--border-hover); background: rgba(255,255,255,0.08); }
 
 .footer-cols {
-  display: flex; gap: 3rem; flex: 1;
+  display: flex; gap: 4rem; flex: 1;
   justify-content: flex-end;
 }
 
